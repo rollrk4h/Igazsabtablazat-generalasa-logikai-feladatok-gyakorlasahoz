@@ -8,10 +8,15 @@
 <a href="http://programozas.sterbinaroland.hu/igazsagtabla.html">demo</a>
 
 Példák a program megfelelő működéséhez:
-
+<br>
 (/ jellel elválasztva különböző szimbólumó formulák tesztelhetőek!)
+<br>
 ~p / ¬p
+<br>
 (p & q) / (p ∧ q)
+<br>
 (p > (q v ~r)) / (p ⊃ (q ∨ ¬r))
+<br>
 (p & (~q > r)) / (p ∧ (¬q ⊃ r))
+<br>
 {(p<>(qvr)), p, (~q>r)} / {(p≡(q∨r)), p, (¬q⊃r)}
