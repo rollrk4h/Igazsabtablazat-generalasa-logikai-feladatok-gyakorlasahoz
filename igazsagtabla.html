@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <title>Igazságtáblázat generálása magyarul</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Tangerine"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Oswald"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      #wrapper {
+        width: 90%;
+        margin: 0 auto;
+      }
+      #ujformula_wrapper {
+        margin: 0 auto;
+        padding-top: 25px;
+        display: none;
+      }
+      body {
+        font-family: "Oswald", serif;
+        color: #000 !important;
+        height: 100%;
+        font-size: 24px;
+      }
+
+      .container {
+        margin-top: 100px !important;
+      }
+
+      #location {
+        color: #999999;
+        font-size: 12px;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+      }
+
+      #location a {
+        color: #999999;
+      }
+
+      #githublink {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
+      #title {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+
+      td.space {
+        width: 1em;
+      }
+
+      #tt {
+        margin: 0 auto;
+        padding: 1em;
+        min-height: 5em;
+      }
+
+      #tt div.center {
+        margin: 0 auto;
+        display: table;
+      }
+
+      table.truth {
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+
+      table.truth th {
+        border-bottom: 1px solid black;
+        text-align: center;
+        padding: 0.2em;
+        font-weight: normal;
+      }
+
+      table.truth td {
+        border: 0;
+        padding: 0.2em;
+      }
+
+      table.truth .dv {
+        border-right: 1px solid black;
+      }
+
+      table.truth .mc {
+        color: red;
+      }
+
+      #formula_wrapper {
+        padding-bottom: 50px;
+        padding-top: 50px;
+      }
+      h1 {
+        font-family: "Tangerine", serif;
+        font-size: 70px;
+      }
+      h2 {
+        font-family: "Tangerine", serif;
+        font-size: 40px;
+      }
+      .hr-text {
+        line-height: 1em;
+        position: relative;
+        outline: 0;
+        border: 0;
+        color: black;
+        text-align: center;
+        height: 1.5em;
+        margin: 0 auto;
+        width: 100%;
+        font-weight: bold;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+      .hr-text:before {
+        content: "";
+        font-weight: bold;
+        background: #000;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+      }
+      .hr-text:after {
+        content: attr(data-content);
+        position: relative;
+        display: inline-block;
+        color: black;
+        padding: 0 0.5em;
+        line-height: 1.5em;
+        color: #fff;
+        background-color: #000;
+        font-weight: bold;
+        font-size: 22px;
+        font-family: "Open Sans Condensed", sans-serif;
+      }
+      .form-control {
+        font-family: "Arial";
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <h1 style="text-align: center; padding-top: 30px">
+        Igazságtáblázat generálása magyarul
+      </h1>
+      <h2 style="text-align: center">
+        <a href="https://sterbinaroland.hu">Sterbina Roland</a> &
+        <a href="https://mrieppel.net/prog/truthtable.html">Michael Rieppel</a>
+      </h2>
+      <hr class="hr-text" data-content="Formula hozzáadása" />
+      <form id="formula_wrapper">
+        <div class="form-group">
+          <label for="formula">Formula</label>
+          <input
+            type="text"
+            class="form-control"
+            id="formula"
+            aria-describedby="formula"
+            placeholder=""
+          />
+        </div>
+        <a href="#" id="kuldes" class="btn btn-primary">Generálás</a>
+      </form>
+      <hr class="hr-text" data-content="Igazságtáblázat beállításai" />
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col">Eredmény jelölése:</th>
+            <th scope="col">Logikai jelek:</th>
+            <th scope="col">Táblázat típusa:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="radio" name="tvstyle" value="tf" checked /> T/F
+            </td>
+            <td>
+              <input type="radio" name="cset" value="cs1" checked /> &not;,
+              &and;, &or;, &rarr;, &harr;
+            </td>
+            <td>
+              <input type="radio" name="style" id="full" checked /> Teljes
+              táblázat
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="radio" name="tvstyle" value="tb" /> &#8868;/&perp;
+            </td>
+            <td>
+              <input type="radio" name="cset" value="cs2" /> ~, &amp;, &or;,
+              &rarr;, &harr;
+            </td>
+            <td>
+              <input type="radio" name="style" id="main" /> A táblázat
+              főoszlopai<br />
+            </td>
+          </tr>
+          <tr>
+            <td><input type="radio" name="tvstyle" value="oz" /> 1/0<br /></td>
+            <td>
+              <input type="radio" name="cset" value="cs3" /> ~, &amp;, &or;,
+              &sup;, &equiv;
+            </td>
+            <td>
+              <input type="radio" name="style" id="text" /> Szöveges táblázat<br />
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <input type="radio" name="style" id="latex" /> LaTex táblázat
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <input
+        type="text"
+        id="in"
+        class="form-control"
+        style="visibility: hidden"
+      />
+
+      <hr
+        class="hr-text divider_igazsagtabla"
+        data-content="Igazságtáblázat"
+        style="display: none"
+      />
+      <div id="tt" style="display: none"></div>
+
+      <hr class="hr-text" data-content="Használható szimbólumok" />
+      <p><b>Az alábbi szimbólumok használhatók az oldalon:</b></p>
+
+      <table class="table table-borderless">
+        <tr>
+          <td>~ / ¬</td>
+          <td>- negáció</td>
+        </tr>
+        <tr>
+          <td>&amp; / ∧</td>
+          <td>- konjunkció</td>
+        </tr>
+        <tr>
+          <td>v / ∨</td>
+          <td>- diszjunkció</td>
+        </tr>
+        <tr>
+          <td>&gt; / ⊃</td>
+          <td>- implikáció</td>
+        </tr>
+        <tr>
+          <td>&lt;&gt; / ≡</td>
+          <td>- ekvivalencia</td>
+        </tr>
+      </table>
+
+      <hr class="hr-text" data-content="Példa formulák" />
+      <p>Példák a program megfelelő működéséhez:</p>
+      <p>(/ jellel elválasztva különböző szimbólumó formulák tesztelhetőek!)</p>
+      <table class="table table-borderless">
+        <tr>
+          <td>~p / ¬p</td>
+        </tr>
+        <tr>
+          <td>(p &amp; q) / (p ∧ q)</td>
+        </tr>
+        <tr>
+          <td>(p &gt; (q v ~r)) / (p ⊃ (q ∨ ¬r))</td>
+        </tr>
+        <tr>
+          <td>(p &amp; (~q > r)) / (p ∧ (¬q ⊃ r))</td>
+        </tr>
+        <tr>
+          <td>{(p&lt;&gt;(qvr)), p, (~q>r)} / {(p≡(q∨r)), p, (¬q⊃r)}</td>
+        </tr>
+      </table>
+    </div>
+    <script src="igazsagtabla.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#kuldes").click(function () {
+          var ujformula = $("#formula").val();
+          var proba = ujformula.replace(/}/g, "");
+          var proba = proba.replace(/{/g, "");
+          var proba = proba.replace("a.", ",");
+          var proba = proba.replace("b.", ",");
+          var proba = proba.replace("c.", ",");
+          var proba = proba.replace("d.", ",");
+          var proba = proba.replace(/¬/g, "~");
+          var proba = proba.replace(/∨/g, "v");
+          var proba = proba.replace(/∧/g, "&");
+          var proba = proba.replace(/⊃/g, ">");
+          var proba = proba.replace(/≡/g, "<>");
+          $("#in").val(proba);
+          construct();
+          $(".divider_igazsagtabla").fadeIn();
+          $("#tt").fadeIn();
+        });
+      });
+    </script>
+  </body>
+</html>
